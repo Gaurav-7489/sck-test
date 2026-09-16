@@ -7,132 +7,29 @@ import SckWebGLScene from './SckWebGLScene'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const materials = [
-  ['01', 'MATTE BLACK', 'A surface treated as attitude.'],
-  ['02', 'PORTORO', 'Stone selected for movement and depth.'],
-  ['03', 'NUBUCK / WOOL', 'Tactile contrast inside a controlled cabin.'],
-  ['04', 'CHRISTOFLE', 'Metalwork where utility becomes detail.'],
-]
+const materials=[['01','MATTE BLACK','A surface treated as attitude.'],['02','PORTORO','Stone selected for movement and depth.'],['03','NUBUCK / WOOL','Tactile contrast inside a controlled cabin.'],['04','CHRISTOFLE','Metalwork where utility becomes detail.']]
+const process=[['01','THE BRIEF','A direction, a constraint, an impossible ambition.'],['02','ARRIVAL','The aircraft enters the process as a complete object.'],['03','STRIP BACK','Cabin removal. Structure exposed. Every decision visible.'],['04','REBUILD','Paint, corrosion, manufacture, material and identity.'],['05','COMPLETION','One aircraft. One point of view. Nothing incidental.']]
 
-const process = [
-  ['01', 'THE BRIEF', 'A direction, a constraint, an impossible ambition.'],
-  ['02', 'ARRIVAL', 'The aircraft enters the process as a complete object.'],
-  ['03', 'STRIP BACK', 'Cabin removal. Structure exposed. Every decision visible.'],
-  ['04', 'REBUILD', 'Paint, corrosion, manufacture, material and identity.'],
-  ['05', 'COMPLETION', 'One aircraft. One point of view. Nothing incidental.'],
-]
-
-export default function SckExperience() {
-  const [submitted, setSubmitted] = useState(false)
-
-  useEffect(() => {
-    const root = document.querySelector('.sck-experience')
-    if (!root) return
-    const ctx = gsap.context(() => {
-      gsap.fromTo('[data-intro]', { y: 36, opacity: 0 }, { y: 0, opacity: 1, duration: 1.15, stagger: 0.07, ease: 'power4.out', delay: 0.5 })
-      gsap.utils.toArray<HTMLElement>('[data-reveal]').forEach((item) => {
-        gsap.fromTo(item, { y: 55, opacity: 0 }, { y: 0, opacity: 1, duration: 1, ease: 'power3.out', scrollTrigger: { trigger: item, start: 'top 84%', once: true } })
-      })
-      gsap.utils.toArray<HTMLElement>('[data-line]').forEach((line) => {
-        gsap.fromTo(line, { scaleX: 0, transformOrigin: 'left center' }, { scaleX: 1, duration: 1.2, ease: 'power3.out', scrollTrigger: { trigger: line, start: 'top 88%', once: true } })
-      })
-    }, root)
-    return () => ctx.revert()
-  }, [])
-
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-    setSubmitted(true)
-  }
-
-  return (
-    <main className="sck-experience">
-      <SckWebGLScene />
-      <div className="sck-loading" aria-hidden="true">
-        <video src="/media/video/loading.mp4" autoPlay muted playsInline preload="auto" />
-        <div className="sck-loading__label">ALIGNING DETAILS...</div>
-      </div>
-
-      <section className="sck-screen sck-hero" id="top">
-        <header className="sck-nav" data-intro>
-          <a className="sck-logo" href="#top">SCK</a>
-          <nav>
-            <a href="#aircraft">AIRCRAFT</a><a href="#atelier">ATELIER</a><a href="#projects">PROJECTS</a><a href="#journal">JOURNAL</a><a href="#access">ACCESS</a>
-          </nav>
-          <a className="sck-nav__mobile" href="#access">ACCESS ↗</a>
-        </header>
-
-        <div className="sck-hero__content">
-          <p className="sck-kicker" data-intro>SCK AVIATION / VIENNA</p>
-          <h1 data-intro>ATTITUDE<br />WITH<br />ALTITUDE.</h1>
-          <p className="sck-hero__sub" data-intro>THE AIRCRAFT IS THE OBJECT. THE EXPERIENCE IS THE POINT OF VIEW.</p>
-          <a className="sck-link" data-intro href="#aircraft"><span>ENTER THE EXPERIENCE</span><b>↘</b></a>
-        </div>
-        <div className="sck-hero__hud" data-intro><span>48°12′N / 16°22′E</span><span>WEBGL FLIGHT SYSTEM / 01</span><span>SCROLL TO FLY ↓</span></div>
-      </section>
-
-      <section className="sck-screen sck-statement" id="statement">
-        <div className="sck-statement__left" data-reveal><span className="sck-index">01 / THE POINT OF VIEW</span></div>
-        <div className="sck-statement__main">
-          <p className="sck-kicker" data-reveal>BEYOND THE EXPECTED</p>
-          <h2 data-reveal>AVIATION<br />WITHOUT<br /><em>COMPROMISE.</em></h2>
-          <div className="sck-rule" data-line />
-          <p className="sck-body" data-reveal>Aircraft transformation, design and special projects.<br />Built around an uncompromising point of view.</p>
-        </div>
-      </section>
-
-      <section className="sck-screen sck-aircraft" id="aircraft">
-        <div className="sck-aircraft__top"><span className="sck-index" data-reveal>02 / OE-LSC — BLACK STAR</span><span className="sck-index">LIVE OBJECT / 3D</span></div>
-        <div className="sck-aircraft__title"><h2 data-reveal>ATTITUDE,<br /><em>ELEVATED.</em></h2></div>
-        <div className="sck-aircraft__copy" data-reveal><p>A transformation conceived as a complete object.</p><p>Exterior. Interior. Detail. Identity.</p><a className="sck-link" href="#materials"><span>EXPLORE THE OBJECT</span><b>↗</b></a></div>
-        <div className="sck-aircraft__readout"><span>OE-LSC</span><span>GULFSTREAM / BLACK STAR</span><span>01 — 04</span></div>
-      </section>
-
-      <section className="sck-screen sck-materials" id="materials">
-        <div className="sck-section-head"><span className="sck-index" data-reveal>03 / MATERIAL STUDIES</span><p data-reveal>MATERIAL IS NOT DECORATION.<br />IT IS PROOF.</p></div>
-        <div className="sck-material-grid">
-          {materials.map(([number, title, copy]) => (
-            <article className="sck-material" key={number} data-reveal><span>{number}</span><div className="sck-material__orb" aria-hidden="true" /><h3>{title}</h3><p>{copy}</p><b>INSPECT DETAIL ↗</b></article>
-          ))}
-        </div>
-      </section>
-
-      <section className="sck-screen sck-atelier" id="atelier">
-        <div className="sck-atelier__intro"><span className="sck-index" data-reveal>04 / ATELIER</span><p className="sck-kicker" data-reveal>MISSION IMPOSSIBLE</p><h2 data-reveal>WE OPERATE<br />WITHIN THE<br /><em>IMPOSSIBLE.</em></h2><p className="sck-body" data-reveal>Complexity is where the work becomes visible.</p></div>
-        <div className="sck-process">{process.map(([number, title, copy]) => <div className="sck-process__row" key={number} data-reveal><span>{number}</span><h3>{title}</h3><p>{copy}</p><i>+</i></div>)}</div>
-      </section>
-
-      {/* The two intentional non-3D editorial interruptions: film + award proof. */}
-      <section className="sck-film" aria-label="Mission Impossible film">
-        <video src="/media/video/mission-impossible.mp4" autoPlay muted loop playsInline preload="metadata" />
-        <div className="sck-film__overlay" /><div className="sck-film__caption"><span>05 / THE PROCESS / FILM</span><strong>15 WEEKS.<br />ONE COMPLETE OBJECT.</strong><small>MISSION / IMPOSSIBLE — PRODUCTION</small></div>
-      </section>
-
-      <section className="sck-screen sck-projects" id="projects">
-        <div className="sck-projects__intro"><span className="sck-index" data-reveal>06 / PROJECTS</span><h2 data-reveal>WORK THAT<br /><em>LEAVES THE HANGAR.</em></h2><p data-reveal>Aircraft productions. Special projects. Selective charter. The 3D world becomes the portfolio wall.</p></div>
-        <div className="sck-project-orbit" aria-hidden="true"><span>01</span><span>02</span><span>03</span><span>04</span></div>
-        <div className="sck-projects__footer"><span>SCROLL / ROTATE / DISCOVER</span><a href="#access">VIEW THE WORK ↗</a></div>
-      </section>
-
-      <section className="sck-proof" aria-label="Awards and recognition">
-        <div className="sck-proof__mark">AWARD<br />/ PROOF</div><div className="sck-proof__main"><span className="sck-index">07 / EXTERNAL VALIDATION</span><h2>THE WORK<br />SPEAKS<br /><em>OUTSIDE.</em></h2><div className="sck-proof__facts"><div><strong>2024</strong><span>INTERNATIONAL YACHT &amp; AVIATION AWARDS</span></div><div><strong>2023</strong><span>EBACE / GENEVA</span></div><div><strong>OE-LSC</strong><span>GULFSTREAM / BLACK STAR</span></div></div><p className="sck-proof__note">Selected awards, events, partners and credits should be verified against final publication sources before launch.</p></div>
-      </section>
-
-      <section className="sck-screen sck-journal" id="journal">
-        <div className="sck-journal__head"><span className="sck-index" data-reveal>08 / JOURNAL — ATTITUDE</span><h2 data-reveal>DETAILS<br />WORTH<br /><em>NOTICING.</em></h2></div>
-        <div className="sck-journal__cards"><article data-reveal><span>01 / MATERIAL</span><h3>WHY BLACK<br />IS NEVER JUST BLACK.</h3><a href="#materials">READ ↗</a></article><article data-reveal><span>02 / PROCESS</span><h3>ONE DAY<br />BEFORE ARRIVAL.</h3><a href="#atelier">READ ↗</a></article><article data-reveal><span>03 / ATTITUDE</span><h3>THE WORLD<br />BEYOND BEIGE.</h3><a href="#access">READ ↗</a></article></div>
-      </section>
-
-      <section className="sck-screen sck-access" id="access">
-        <div className="sck-access__intro"><span className="sck-index" data-reveal>09 / ACCESS</span><p className="sck-kicker" data-reveal>EXPERIENCE OUR ATTITUDE. SELECTIVELY.</p><h2 data-reveal>LET'S BUILD<br /><em>THE UNEXPECTED.</em></h2><p data-reveal>For aircraft transformation, design, production and special projects.</p></div>
-        <form className="sck-form" onSubmit={handleSubmit}>
-          <label>PROJECT TYPE<select required defaultValue=""><option value="" disabled>Select project</option><option>Aircraft transformation</option><option>Special project / production</option><option>Design collaboration</option><option>Selective charter</option></select></label>
-          <label>TIMELINE<input required placeholder="When are you looking to begin?" /></label><label>NAME<input required placeholder="Your name" /></label><label>EMAIL<input required type="email" placeholder="you@company.com" /></label><label>MESSAGE<textarea required placeholder="Tell us what you're building." rows={4} /></label>
-          <button type="submit"><span>{submitted ? 'INQUIRY RECEIVED' : 'REQUEST ACCESS'}</span><b>↗</b></button><small>By submitting, you agree to be contacted regarding your inquiry.</small>
-        </form>
-      </section>
-
-      <footer className="sck-footer"><a className="sck-logo" href="#top">SCK</a><div><span>VIENNA / AUSTRIA</span><span>AVIATION / DESIGN / SPECIAL PROJECTS</span></div><a href="#top">BACK TO TOP ↑</a></footer>
-    </main>
-  )
+export default function SckExperience(){
+ const [submitted,setSubmitted]=useState(false); const [introFinished,setIntroFinished]=useState(false)
+ useEffect(()=>{const timer=window.setTimeout(()=>setIntroFinished(true),19500);const root=document.querySelector('.sck-experience');if(!root)return()=>window.clearTimeout(timer);const ctx=gsap.context(()=>{gsap.utils.toArray<HTMLElement>('[data-scroll-reveal]').forEach(el=>gsap.fromTo(el,{y:55,opacity:0},{y:0,opacity:1,duration:1.05,ease:'power4.out',scrollTrigger:{trigger:el,start:'top 88%',once:true}}))},root);return()=>{window.clearTimeout(timer);ctx.revert()}},[])
+ function submit(e:FormEvent<HTMLFormElement>){e.preventDefault();setSubmitted(true)}
+ return <main className="sck-experience">
+  <style>{`\n.sck-experience{background:#000!important;color:#f2f0eb;overflow:clip}.sck-webgl{position:fixed!important;inset:0!important;width:100vw!important;height:100vh!important;z-index:0!important;pointer-events:none!important}.sck-webgl canvas{width:100%!important;height:100%!important;display:block}.sck-nav{position:fixed!important;top:0!important;left:0!important;right:0!important;z-index:20!important;background:linear-gradient(#0008,transparent);padding:30px 42px!important}.sck-loading{z-index:100!important;transition:opacity 1.1s ease,visibility 1.1s}.sck-loading--done{opacity:0!important;visibility:hidden!important}.sck-cinema-note{position:fixed;right:42px;bottom:30px;z-index:12;display:flex;gap:20px;font:600 8px/1 Arial,sans-serif;letter-spacing:.22em;opacity:.5}.sck-hero,.sck-statement,.sck-aircraft,.sck-materials,.sck-atelier,.sck-projects,.sck-journal,.sck-access,.sck-footer{position:relative;z-index:2}.sck-hero{background:transparent!important}.sck-hero__media,.sck-aircraft__visual{display:none!important}.sck-hero__wash{background:linear-gradient(90deg,#000b,transparent 72%),linear-gradient(0deg,#000b,transparent 55%)!important}.section-dark,.sck-statement,.sck-atelier,.sck-projects,.sck-journal,.sck-access,.sck-footer{background:linear-gradient(180deg,#000b,#0009)!important}.section-light,.sck-materials,.sck-proof{background:linear-gradient(180deg,#000c,#000b)!important;color:#f2f0eb!important}.sck-materials .sck-section-head,.sck-material{border-color:#ffffff22!important}.sck-material__swatch{background:radial-gradient(circle at 35% 25%,#333,#080808 52%,#000)!important}.sck-material:nth-child(2) .sck-material__swatch{background:linear-gradient(145deg,#1d1915,#6d6255 45%,#080706)!important}.sck-material:nth-child(3) .sck-material__swatch{background:repeating-linear-gradient(18deg,#242424 0 8px,#090909 8px 13px)!important}.sck-material:nth-child(4) .sck-material__swatch{background:linear-gradient(135deg,#050505,#aaa 48%,#111 52%,#000)!important}.sck-aircraft{height:105svh;background:transparent!important}.sck-film,.sck-proof{z-index:3}.sck-film{box-shadow:0 -80px 120px #000}.sck-proof{box-shadow:0 80px 120px #000}.sck-project__media{background:#050505!important}.sck-access{min-height:100svh}.sck-form input,.sck-form select,.sck-form textarea{background:#050505!important;color:#f2f0eb!important;border-color:#ffffff33!important}.sck-form option{background:#050505;color:#fff}.sck-footer{border-top:1px solid #fff2!important}.sck-hero h1,.sck-statement__main h2,.sck-aircraft__overlay h2,.sck-atelier h2,.sck-proof h2,.sck-journal h2,.sck-access h2{ text-shadow:0 10px 45px #000}.sck-hero__content{z-index:8}.sck-hero__bottom{z-index:8}.sck-projects,.sck-materials,.sck-atelier,.sck-journal{backdrop-filter:blur(1px)}\n@media(max-width:800px){.sck-nav{padding:22px 20px!important}.sck-nav nav{display:none}.sck-nav__mobile{display:block}.sck-cinema-note{right:20px;bottom:18px;font-size:7px}.sck-hero{min-height:100svh}.sck-hero__content{left:20px!important;right:20px;bottom:14vh!important}.sck-hero h1{font-size:18vw!important}.sck-statement{grid-template-columns:1fr!important;padding:15vh 20px!important}.sck-statement__main h2{font-size:15vw!important}.sck-aircraft__overlay{padding:14vh 20px 8vh!important}.sck-aircraft__overlay h2{font-size:16vw!important}.sck-material-grid{grid-template-columns:1fr 1fr!important}.sck-material{min-height:330px!important}.sck-material + .sck-material{padding-left:15px!important}.sck-atelier{grid-template-columns:1fr!important;padding:14vh 20px!important}.sck-atelier__intro{position:relative!important;top:auto!important}.sck-process__row{grid-template-columns:32px 1fr 20px!important}.sck-process__row p{grid-column:2}.sck-film{height:72svh!important}.sck-project-list{display:block!important}.sck-project{margin:0 0 70px!important}.sck-proof{grid-template-columns:1fr!important;padding:14vh 20px!important}.sck-journal__cards{grid-template-columns:1fr!important}.sck-access{grid-template-columns:1fr!important;padding:14vh 20px!important}}\n`}</style>
+  <SckWebGLScene/>
+  <div className={`sck-loading ${introFinished?'sck-loading--done':''}`} aria-hidden="true"><video src="/media/video/loading.mp4" autoPlay muted playsInline preload="auto"/><div className="sck-loading__label">ALIGNING DETAILS...</div></div>
+  <div className="sck-cinema-note" aria-hidden="true"><span>OE-LSC</span><span>BLACK STAR / VIENNA</span></div>
+  <header className="sck-nav"><a className="sck-logo" href="#top">SCK</a><nav><a href="#aircraft">AIRCRAFT</a><a href="#atelier">ATELIER</a><a href="#projects">PROJECTS</a><a href="#journal">JOURNAL</a><a href="#access">ACCESS</a></nav><a className="sck-nav__mobile" href="#access">ACCESS ↗</a></header>
+  <section className="sck-hero" id="top"><div className="sck-hero__content"><p className="sck-kicker" data-scroll-reveal>SCK AVIATION</p><h1 data-scroll-reveal>ATTITUDE<br/>WITH<br/>ALTITUDE.</h1><p className="sck-hero__sub" data-scroll-reveal>EXPERIENCE OUR ATTITUDE. SELECTIVELY.</p><a className="sck-link" data-scroll-reveal href="#access"><span>REQUEST ACCESS</span><b>↗</b></a></div><div className="sck-hero__bottom"><span>VIENNA / AUSTRIA</span><span>THE FLIGHT BEGINS</span><span>01 — 09</span></div></section>
+  <section className="sck-statement section-dark"><div className="sck-statement__left" data-scroll-reveal><span className="sck-index">01 / THE POINT OF VIEW</span></div><div className="sck-statement__main"><p className="sck-kicker" data-scroll-reveal>BEYOND THE EXPECTED</p><h2 data-scroll-reveal>AVIATION<br/>WITHOUT<br/>COMPROMISE.</h2><div className="sck-rule" data-scroll-reveal/><p className="sck-body" data-scroll-reveal>Aircraft transformation, design and special projects.<br/>Built around an uncompromising point of view.</p></div></section>
+  <section className="sck-aircraft" id="aircraft"><div className="sck-aircraft__overlay"><div><span className="sck-index" data-scroll-reveal>02 / OE-LSC — BLACK STAR</span><h2 data-scroll-reveal>ATTITUDE,<br/>ELEVATED.</h2></div><div className="sck-aircraft__copy" data-scroll-reveal><p>A transformation conceived as a complete object.</p><p>Exterior. Interior. Detail. Identity.</p><a className="sck-link" href="#materials"><span>ENTER THE AIRCRAFT</span><b>↗</b></a></div></div><div className="sck-aircraft__coords">48°12′N / 16°22′E</div></section>
+  <section className="sck-materials section-light" id="materials"><div className="sck-section-head"><span className="sck-index">03 / MATERIAL STUDIES</span><p>Material is not decoration.<br/>It is proof.</p></div><div className="sck-material-grid">{materials.map(([n,t,c])=><article className="sck-material" key={n} data-scroll-reveal><span>{n}</span><div className="sck-material__swatch"><i/></div><h3>{t}</h3><p>{c}</p><b>INSPECT DETAIL ↗</b></article>)}</div></section>
+  <section className="sck-atelier" id="atelier"><div className="sck-atelier__intro"><span className="sck-index" data-scroll-reveal>04 / ATELIER</span><p className="sck-kicker" data-scroll-reveal>MISSION IMPOSSIBLE</p><h2 data-scroll-reveal>WE OPERATE<br/>WITHIN THE<br/><em>IMPOSSIBLE.</em></h2><p className="sck-body" data-scroll-reveal>Complexity is where the work becomes visible.</p></div><div className="sck-process">{process.map(([n,t,c])=><div className="sck-process__row" key={n} data-scroll-reveal><span>{n}</span><h3>{t}</h3><p>{c}</p><i>+</i></div>)}</div></section>
+  <section className="sck-film" aria-label="SCK cinematic film"><video src="/media/video/mission-impossible.mp4" autoPlay muted loop playsInline preload="metadata"/><div className="sck-film__overlay"/><div className="sck-film__caption"><span>05 / THE PROCESS</span><strong>15 WEEKS.<br/>ONE COMPLETE OBJECT.</strong><small>PROCESS / PAINT / MATERIAL / MANUFACTURE</small></div></section>
+  <section className="sck-projects section-dark" id="projects"><div className="sck-section-head sck-section-head--dark"><span className="sck-index">06 / PROJECTS</span><p>Aircraft. Productions.<br/>Automotive crossover.<br/>Selective charter.</p></div><div className="sck-project-list"><article className="sck-project" data-scroll-reveal><div className="sck-project__media"><video src="/media/video/mission-impossible.mp4" autoPlay muted loop playsInline/><span>01</span></div><div className="sck-project__info"><span>PRODUCTION / AVIATION</span><h3>MISSION / IMPOSSIBLE</h3><a href="#access">VIEW PROJECT ↗</a></div></article><article className="sck-project" data-scroll-reveal><div className="sck-project__media"><video src="/media/video/charter.mp4" autoPlay muted loop playsInline/><span>02</span></div><div className="sck-project__info"><span>SPECIAL PROJECT</span><h3>AIRCRAFT / IN MOTION</h3><a href="#access">VIEW PROJECT ↗</a></div></article><article className="sck-project" data-scroll-reveal><div className="sck-project__media"><img src="/media/atelier/facetune-26.jpg" alt="SCK atelier detail"/><span>03</span></div><div className="sck-project__info"><span>DESIGN / ATELIER</span><h3>DETAIL / BECOMES IDENTITY</h3><a href="#access">VIEW PROJECT ↗</a></div></article></div></section>
+  <section className="sck-proof section-light"><div className="sck-proof__mark" data-scroll-reveal>AWARD<br/>/ PROOF</div><div className="sck-proof__main"><span className="sck-index" data-scroll-reveal>07 / EXTERNAL VALIDATION</span><h2 data-scroll-reveal>THE WORK<br/>SPEAKS<br/><em>OUTSIDE.</em></h2><div className="sck-proof__facts" data-scroll-reveal><div><strong>2024</strong><span>INTERNATIONAL YACHT &amp; AVIATION AWARDS</span></div><div><strong>2023</strong><span>EBACE / GENEVA</span></div><div><strong>OE-LSC</strong><span>GULFSTREAM / BLACK STAR</span></div></div><p className="sck-proof__note">Selected awards, events, partners and credits should be verified against final publication sources before launch.</p></div></section>
+  <section className="sck-journal section-dark" id="journal"><div className="sck-journal__head"><span className="sck-index">08 / JOURNAL — ATTITUDE</span><h2>DETAILS<br/>WORTH<br/><em>NOTICING.</em></h2></div><div className="sck-journal__cards"><article data-scroll-reveal><span>01 / MATERIAL</span><h3>WHY BLACK<br/>IS NEVER JUST BLACK.</h3><a href="#materials">READ ↗</a></article><article data-scroll-reveal><span>02 / PROCESS</span><h3>ONE DAY<br/>BEFORE ARRIVAL.</h3><a href="#atelier">READ ↗</a></article><article data-scroll-reveal><span>03 / ATTITUDE</span><h3>THE WORLD<br/>BEYOND BEIGE.</h3><a href="#access">READ ↗</a></article></div></section>
+  <section className="sck-access" id="access"><div className="sck-access__intro"><span className="sck-index" data-scroll-reveal>09 / ACCESS</span><p className="sck-kicker" data-scroll-reveal>EXPERIENCE OUR ATTITUDE. SELECTIVELY.</p><h2 data-scroll-reveal>LET'S BUILD<br/><em>THE UNEXPECTED.</em></h2><p data-scroll-reveal>For aircraft transformation, design, production and special projects.</p></div><form className="sck-form" onSubmit={submit}><label>PROJECT TYPE<select required defaultValue=""><option value="" disabled>Select project</option><option>Aircraft transformation</option><option>Special project / production</option><option>Design collaboration</option><option>Selective charter</option></select></label><label>TIMELINE<input required placeholder="When are you looking to begin?"/></label><label>NAME<input required placeholder="Your name"/></label><label>EMAIL<input required type="email" placeholder="you@company.com"/></label><label>MESSAGE<textarea required placeholder="Tell us what you're building." rows={4}/></label><button type="submit"><span>{submitted?'INQUIRY RECEIVED':'REQUEST ACCESS'}</span><b>↗</b></button><small>By submitting, you agree to be contacted regarding your inquiry.</small></form></section>
+  <footer className="sck-footer"><a className="sck-logo" href="#top">SCK</a><div><span>VIENNA / AUSTRIA</span><span>AVIATION / DESIGN / SPECIAL PROJECTS</span></div><a href="#top">BACK TO TOP ↑</a></footer>
+ </main>
 }
