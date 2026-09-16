@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import SckWebGLScene from './SckWebGLScene'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -566,6 +567,7 @@ export default function SckExperience() {
       {/* HERO */}
 
       <section ref={heroRef} className="sck-hero">
+          <SckWebGLScene />
 
         <div
           ref={atmosphereRef}
