@@ -653,3 +653,153 @@ a {
     scroll-behavior: auto !important;
   }
 }
+/* ==================================================
+   OE-LSC AIRCRAFT SCENE
+================================================== */
+
+.sck-aircraft {
+  position: relative;
+  min-height: 125svh;
+  background: #050505;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.sck-aircraft__visual {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: -2;
+}
+
+.sck-aircraft__visual img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+  filter: saturate(0.92) contrast(1.05);
+  will-change: transform, opacity;
+}
+
+.sck-aircraft__shade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(5, 5, 5, 0.92) 0%,
+      rgba(5, 5, 5, 0.58) 38%,
+      rgba(5, 5, 5, 0.08) 72%,
+      rgba(5, 5, 5, 0.45) 100%
+    ),
+    linear-gradient(
+      0deg,
+      rgba(5, 5, 5, 0.88) 0%,
+      transparent 38%,
+      rgba(5, 5, 5, 0.2) 100%
+    );
+}
+
+.sck-aircraft__content {
+  min-height: 125svh;
+  padding: 18vh 7vw 12vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+
+.sck-aircraft__eyebrow {
+  margin: 0 0 28px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.34em;
+}
+
+.sck-aircraft__content h2 {
+  margin: 0;
+  font-size: clamp(68px, 10.5vw, 175px);
+  line-height: 0.8;
+  font-weight: 400;
+  letter-spacing: -0.065em;
+}
+
+.sck-aircraft__copy {
+  margin: 48px 0 0;
+  font-size: 11px;
+  line-height: 1.8;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+.sck-aircraft__meta {
+  width: min(650px, 80vw);
+  margin-top: 70px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.28);
+  display: grid;
+  grid-template-columns: 50px 1fr auto;
+  gap: 25px;
+  font-size: 8px;
+  letter-spacing: 0.24em;
+}
+
+.sck-aircraft__meta span:last-child {
+  transition: letter-spacing 300ms ease;
+}
+
+.sck-aircraft__meta:hover span:last-child {
+  letter-spacing: 0.34em;
+}
+
+@media (max-width: 800px) {
+  .sck-aircraft,
+  .sck-aircraft__content {
+    min-height: 105svh;
+  }
+
+  .sck-aircraft__visual img {
+    object-position: 54% center;
+  }
+
+  .sck-aircraft__shade {
+    background:
+      linear-gradient(
+        90deg,
+        rgba(5, 5, 5, 0.78),
+        rgba(5, 5, 5, 0.25)
+      ),
+      linear-gradient(
+        0deg,
+        rgba(5, 5, 5, 0.9),
+        transparent 55%,
+        rgba(5, 5, 5, 0.25)
+      );
+  }
+
+  .sck-aircraft__content {
+    padding: 14vh 20px 10vh;
+  }
+
+  .sck-aircraft__content h2 {
+    font-size: clamp(60px, 17vw, 100px);
+  }
+
+  .sck-aircraft__copy {
+    margin-top: 35px;
+    font-size: 9px;
+    max-width: 290px;
+  }
+
+  .sck-aircraft__meta {
+    width: calc(100vw - 40px);
+    margin-top: 50px;
+    grid-template-columns: 35px 1fr;
+  }
+
+  .sck-aircraft__meta span:last-child {
+    grid-column: 2;
+  }
+}

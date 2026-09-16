@@ -8,89 +8,139 @@ gsap.registerPlugin(ScrollTrigger)
 
 export default function SckExperience() {
   const rootRef = useRef<HTMLDivElement>(null)
+
   const loadingRef = useRef<HTMLDivElement>(null)
   const loadingVideoRef = useRef<HTMLVideoElement>(null)
 
   const heroRef = useRef<HTMLElement>(null)
+  const heroImageRef = useRef<HTMLDivElement>(null)
   const aircraftRef = useRef<HTMLImageElement>(null)
   const atmosphereRef = useRef<HTMLDivElement>(null)
+  const grainRef = useRef<HTMLDivElement>(null)
 
+  const navRef = useRef<HTMLElement>(null)
   const eyebrowRef = useRef<HTMLParagraphElement>(null)
   const titleRef = useRef<HTMLHeadingElement>(null)
   const subRef = useRef<HTMLParagraphElement>(null)
   const ctaRef = useRef<HTMLAnchorElement>(null)
+  const scrollRef = useRef<HTMLDivElement>(null)
 
   const statementRef = useRef<HTMLElement>(null)
   const statementSmallRef = useRef<HTMLParagraphElement>(null)
   const statementTitleRef = useRef<HTMLHeadingElement>(null)
+  const statementCopyRef = useRef<HTMLParagraphElement>(null)
+
+  const aircraftSectionRef = useRef<HTMLElement>(null)
+  const aircraftSectionImageRef = useRef<HTMLImageElement>(null)
+  const aircraftMetaRef = useRef<HTMLDivElement>(null)
+  const aircraftLabelRef = useRef<HTMLParagraphElement>(null)
+  const aircraftTitleRef = useRef<HTMLHeadingElement>(null)
+  const aircraftCopyRef = useRef<HTMLParagraphElement>(null)
 
   useEffect(() => {
     const root = rootRef.current
-
-    if (!root) return
-
     const loading = loadingRef.current
     const loadingVideo = loadingVideoRef.current
+
     const hero = heroRef.current
+    const heroImage = heroImageRef.current
     const aircraft = aircraftRef.current
     const atmosphere = atmosphereRef.current
+    const grain = grainRef.current
 
+    const nav = navRef.current
     const eyebrow = eyebrowRef.current
     const title = titleRef.current
     const sub = subRef.current
     const cta = ctaRef.current
+    const scroll = scrollRef.current
 
     const statement = statementRef.current
     const statementSmall = statementSmallRef.current
     const statementTitle = statementTitleRef.current
+    const statementCopy = statementCopyRef.current
+
+    const aircraftSection = aircraftSectionRef.current
+    const aircraftSectionImage = aircraftSectionImageRef.current
+    const aircraftMeta = aircraftMetaRef.current
+    const aircraftLabel = aircraftLabelRef.current
+    const aircraftTitle = aircraftTitleRef.current
+    const aircraftCopy = aircraftCopyRef.current
 
     if (
+      !root ||
       !loading ||
       !hero ||
+      !heroImage ||
       !aircraft ||
       !atmosphere ||
+      !grain ||
+      !nav ||
       !eyebrow ||
       !title ||
       !sub ||
       !cta ||
+      !scroll ||
       !statement ||
       !statementSmall ||
-      !statementTitle
+      !statementTitle ||
+      !statementCopy ||
+      !aircraftSection ||
+      !aircraftSectionImage ||
+      !aircraftMeta ||
+      !aircraftLabel ||
+      !aircraftTitle ||
+      !aircraftCopy
     ) {
       return
     }
 
     const context = gsap.context(() => {
-      /*
-       * OPENING FILM
-       */
+      /* ---------------------------------------------
+         INITIAL STATES
+      --------------------------------------------- */
 
       gsap.set(loading, {
         opacity: 1,
+        visibility: 'visible',
       })
 
-      gsap.set(hero, {
-        opacity: 1,
+      gsap.set(heroImage, {
+        scale: 1.08,
       })
 
       gsap.set(atmosphere, {
         opacity: 0,
+        scale: 0.95,
       })
 
       gsap.set(aircraft, {
         opacity: 0,
-        scale: 1.12,
-        filter: 'blur(16px)',
-        x: 0,
+        scale: 1.14,
+        xPercent: 4,
+        filter: 'blur(18px) saturate(0.7)',
       })
 
-      gsap.set([eyebrow, title, sub, cta], {
+      gsap.set(nav, {
         opacity: 0,
-        y: 28,
+        y: -15,
       })
+
+      gsap.set([eyebrow, title, sub, cta, scroll], {
+        opacity: 0,
+        y: 30,
+      })
+
+      gsap.set(grain, {
+        opacity: 0,
+      })
+
+      /* ---------------------------------------------
+         OPENING
+      --------------------------------------------- */
 
       const intro = gsap.timeline({
-        delay: 0.2,
+        delay: 0.15,
         defaults: {
           ease: 'power3.out',
         },
@@ -99,25 +149,45 @@ export default function SckExperience() {
       intro
         .to(atmosphere, {
           opacity: 1,
-          duration: 1.8,
+          scale: 1,
+          duration: 2,
+          ease: 'power2.out',
         })
+        .to(
+          grain,
+          {
+            opacity: 0.16,
+            duration: 1.5,
+          },
+          '-=1.5',
+        )
         .to(
           aircraft,
           {
             opacity: 1,
-            scale: 1.025,
-            filter: 'blur(0px)',
-            duration: 3.4,
+            scale: 1,
+            xPercent: 0,
+            filter: 'blur(0px) saturate(1)',
+            duration: 3.2,
             ease: 'power2.out',
           },
-          '-=1.1',
+          '-=1.2',
+        )
+        .to(
+          nav,
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.9,
+          },
+          '-=2',
         )
         .to(
           eyebrow,
           {
             opacity: 1,
             y: 0,
-            duration: 0.75,
+            duration: 0.7,
           },
           '-=1.8',
         )
@@ -126,18 +196,19 @@ export default function SckExperience() {
           {
             opacity: 1,
             y: 0,
-            duration: 1,
+            duration: 1.1,
+            ease: 'power4.out',
           },
-          '-=0.4',
+          '-=0.45',
         )
         .to(
           sub,
           {
             opacity: 1,
             y: 0,
-            duration: 0.75,
+            duration: 0.7,
           },
-          '-=0.5',
+          '-=0.55',
         )
         .to(
           cta,
@@ -148,20 +219,33 @@ export default function SckExperience() {
           },
           '-=0.35',
         )
+        .to(
+          scroll,
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+          },
+          '-=0.25',
+        )
 
-      /*
-       * LOADING FILM FADES AWAY.
-       * If the browser cannot autoplay the video,
-       * the page still continues normally.
-       */
+      /* ---------------------------------------------
+         LOADING FILM
+      --------------------------------------------- */
+
+      let loadingDismissed = false
 
       const dismissLoading = () => {
+        if (loadingDismissed) return
+
+        loadingDismissed = true
+
         gsap.to(loading, {
           opacity: 0,
-          duration: 0.9,
-          delay: 0.2,
-          ease: 'power2.inOut',
+          duration: 1,
+          ease: 'power3.inOut',
           onComplete: () => {
+            loading.style.visibility = 'hidden'
             loading.style.pointerEvents = 'none'
           },
         })
@@ -172,35 +256,33 @@ export default function SckExperience() {
           once: true,
         })
 
-        window.setTimeout(dismissLoading, 2200)
+        window.setTimeout(dismissLoading, 2600)
       } else {
-        window.setTimeout(dismissLoading, 1000)
+        window.setTimeout(dismissLoading, 900)
       }
 
-      /*
-       * SUBTLE AIRCRAFT BREATHING MOVEMENT
-       */
+      /* ---------------------------------------------
+         AIRCRAFT BREATHING
+      --------------------------------------------- */
 
-      gsap.to(aircraft, {
-        scale: 1.055,
-        x: 10,
-        duration: 11,
+      const breathing = gsap.to(aircraft, {
+        scale: 1.025,
+        xPercent: -0.6,
+        duration: 9,
         ease: 'sine.inOut',
         repeat: -1,
         yoyo: true,
       })
 
-      /*
-       * SCENE 01 → SCENE 02
-       *
-       * The hero behaves like a camera shot.
-       */
+      /* ---------------------------------------------
+         HERO SCROLL CAMERA
+      --------------------------------------------- */
 
       const heroTimeline = gsap.timeline({
         scrollTrigger: {
           trigger: hero,
           start: 'top top',
-          end: '+=130%',
+          end: '+=140%',
           scrub: 1.2,
           pin: true,
           anticipatePin: 1,
@@ -209,13 +291,21 @@ export default function SckExperience() {
 
       heroTimeline
         .to(
+          heroImage,
+          {
+            scale: 1.18,
+            ease: 'none',
+          },
+          0,
+        )
+        .to(
           aircraft,
           {
             scale: 1.18,
-            x: 55,
-            yPercent: -4,
-            opacity: 0.22,
-            filter: 'blur(2px)',
+            xPercent: 10,
+            yPercent: -5,
+            opacity: 0.18,
+            filter: 'blur(2px) saturate(0.75)',
             ease: 'none',
           },
           0,
@@ -223,8 +313,17 @@ export default function SckExperience() {
         .to(
           atmosphere,
           {
-            scale: 1.25,
-            opacity: 0.3,
+            scale: 1.4,
+            opacity: 0.32,
+            ease: 'none',
+          },
+          0,
+        )
+        .to(
+          nav,
+          {
+            y: -35,
+            opacity: 0,
             ease: 'none',
           },
           0,
@@ -232,40 +331,63 @@ export default function SckExperience() {
         .to(
           [eyebrow, title, sub, cta],
           {
-            y: -70,
+            y: -100,
             opacity: 0,
             stagger: 0.035,
             ease: 'none',
           },
           0.08,
         )
+        .to(
+          scroll,
+          {
+            opacity: 0,
+            ease: 'none',
+          },
+          0.1,
+        )
+        .to(
+          grain,
+          {
+            opacity: 0.28,
+            ease: 'none',
+          },
+          0.2,
+        )
 
-      /*
-       * SCENE 02 — EDITORIAL STATEMENT
-       */
+      /* ---------------------------------------------
+         STATEMENT
+      --------------------------------------------- */
 
       gsap.set(statementSmall, {
         opacity: 0,
-        y: 30,
+        y: 35,
       })
 
       gsap.set(statementTitle, {
         opacity: 0,
-        y: 70,
+        y: 80,
       })
 
-      gsap.timeline({
+      gsap.set(statementCopy, {
+        opacity: 0,
+        y: 35,
+      })
+
+      const statementTimeline = gsap.timeline({
         scrollTrigger: {
           trigger: statement,
-          start: 'top 75%',
-          end: 'top 25%',
+          start: 'top 80%',
+          end: 'top 20%',
           scrub: 1,
         },
       })
+
+      statementTimeline
         .to(statementSmall, {
           opacity: 1,
           y: 0,
-          duration: 1,
+          duration: 0.8,
           ease: 'none',
         })
         .to(
@@ -273,11 +395,147 @@ export default function SckExperience() {
           {
             opacity: 1,
             y: 0,
-            duration: 1.3,
+            duration: 1.2,
             ease: 'none',
           },
-          '-=0.6',
+          '-=0.4',
         )
+        .to(
+          statementCopy,
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: 'none',
+          },
+          '-=0.45',
+        )
+
+      /* ---------------------------------------------
+         OE-LSC / AIRCRAFT SCENE
+      --------------------------------------------- */
+
+      gsap.set(aircraftSectionImage, {
+        scale: 1.16,
+        opacity: 0.25,
+      })
+
+      gsap.set(aircraftLabel, {
+        opacity: 0,
+        y: 30,
+      })
+
+      gsap.set(aircraftTitle, {
+        opacity: 0,
+        y: 70,
+      })
+
+      gsap.set(aircraftCopy, {
+        opacity: 0,
+        y: 35,
+      })
+
+      gsap.set(aircraftMeta, {
+        opacity: 0,
+        y: 30,
+      })
+
+      const aircraftTimeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: aircraftSection,
+          start: 'top 80%',
+          end: 'bottom 25%',
+          scrub: 1.1,
+        },
+      })
+
+      aircraftTimeline
+        .to(
+          aircraftSectionImage,
+          {
+            scale: 1,
+            opacity: 1,
+            ease: 'none',
+            duration: 1.5,
+          },
+          0,
+        )
+        .to(
+          aircraftLabel,
+          {
+            opacity: 1,
+            y: 0,
+            ease: 'none',
+            duration: 0.8,
+          },
+          0.15,
+        )
+        .to(
+          aircraftTitle,
+          {
+            opacity: 1,
+            y: 0,
+            ease: 'none',
+            duration: 1,
+          },
+          0.25,
+        )
+        .to(
+          aircraftCopy,
+          {
+            opacity: 0.72,
+            y: 0,
+            ease: 'none',
+            duration: 0.8,
+          },
+          0.4,
+        )
+        .to(
+          aircraftMeta,
+          {
+            opacity: 1,
+            y: 0,
+            ease: 'none',
+            duration: 0.8,
+          },
+          0.55,
+        )
+
+      /* ---------------------------------------------
+         MOUSE CAMERA MOVEMENT
+      --------------------------------------------- */
+
+      const onPointerMove = (event: PointerEvent) => {
+        const x = event.clientX / window.innerWidth - 0.5
+        const y = event.clientY / window.innerHeight - 0.5
+
+        gsap.to(atmosphere, {
+          x: x * 30,
+          y: y * 20,
+          duration: 1.8,
+          ease: 'power3.out',
+          overwrite: true,
+        })
+
+        gsap.to(heroImage, {
+          x: x * -12,
+          y: y * -7,
+          duration: 1.8,
+          ease: 'power3.out',
+          overwrite: true,
+        })
+      }
+
+      window.addEventListener('pointermove', onPointerMove)
+
+      /* ---------------------------------------------
+         CLEANUP
+      --------------------------------------------- */
+
+      return () => {
+        breathing.kill()
+        window.removeEventListener('pointermove', onPointerMove)
+      }
     }, root)
 
     return () => {
@@ -287,7 +545,8 @@ export default function SckExperience() {
 
   return (
     <main ref={rootRef} className="sck-experience">
-      {/* LOADING FILM */}
+
+      {/* LOADING */}
 
       <div ref={loadingRef} className="sck-loading">
         <video
@@ -304,12 +563,19 @@ export default function SckExperience() {
         </div>
       </div>
 
-      {/* SCENE 01 */}
+      {/* HERO */}
 
       <section ref={heroRef} className="sck-hero">
-        <div ref={atmosphereRef} className="sck-hero__atmosphere" />
 
-        <div className="sck-hero__image">
+        <div
+          ref={atmosphereRef}
+          className="sck-hero__atmosphere"
+        />
+
+        <div
+          ref={heroImageRef}
+          className="sck-hero__image"
+        >
           <img
             ref={aircraftRef}
             src="/media/aircraft/oe-lsc.jpg"
@@ -319,7 +585,15 @@ export default function SckExperience() {
 
         <div className="sck-hero__shade" />
 
-        <header className="sck-hero__nav">
+        <div
+          ref={grainRef}
+          className="sck-hero__grain"
+        />
+
+        <header
+          ref={navRef}
+          className="sck-hero__nav"
+        >
           <a href="/" className="sck-wordmark">
             SCK
           </a>
@@ -334,7 +608,11 @@ export default function SckExperience() {
         </header>
 
         <section className="sck-hero__content">
-          <p ref={eyebrowRef} className="sck-hero__eyebrow">
+
+          <p
+            ref={eyebrowRef}
+            className="sck-hero__eyebrow"
+          >
             SCK AVIATION
           </p>
 
@@ -346,27 +624,46 @@ export default function SckExperience() {
             ALTITUDE.
           </h1>
 
-          <p ref={subRef} className="sck-hero__sub">
+          <p
+            ref={subRef}
+            className="sck-hero__sub"
+          >
             EXPERIENCE OUR ATTITUDE. SELECTIVELY.
           </p>
 
-          <a ref={ctaRef} href="#access" className="sck-hero__cta">
+          <a
+            ref={ctaRef}
+            href="#access"
+            className="sck-hero__cta"
+          >
             REQUEST ACCESS
             <span>↗</span>
           </a>
+
         </section>
 
-        <div className="sck-hero__scroll">
+        <div
+          ref={scrollRef}
+          className="sck-hero__scroll"
+        >
           <span>SCROLL TO EXPLORE</span>
           <i />
         </div>
+
       </section>
 
-      {/* SCENE 02 */}
+      {/* STATEMENT */}
 
-      <section ref={statementRef} className="sck-statement">
+      <section
+        ref={statementRef}
+        className="sck-statement"
+      >
         <div className="sck-statement__inner">
-          <p ref={statementSmallRef} className="sck-statement__eyebrow">
+
+          <p
+            ref={statementSmallRef}
+            className="sck-statement__eyebrow"
+          >
             BEYOND THE EXPECTED
           </p>
 
@@ -380,13 +677,73 @@ export default function SckExperience() {
 
           <div className="sck-statement__line" />
 
-          <p className="sck-statement__copy">
+          <p
+            ref={statementCopyRef}
+            className="sck-statement__copy"
+          >
             Aircraft transformation, design and special projects.
             <br />
             Built around an uncompromising point of view.
           </p>
+
         </div>
       </section>
+
+      {/* OE-LSC */}
+
+      <section
+        id="aircraft"
+        ref={aircraftSectionRef}
+        className="sck-aircraft"
+      >
+
+        <div className="sck-aircraft__visual">
+          <img
+            ref={aircraftSectionImageRef}
+            src="/media/aircraft/oe-lsc.jpg"
+            alt="OE-LSC — SCK Aviation"
+          />
+
+          <div className="sck-aircraft__shade" />
+        </div>
+
+        <div className="sck-aircraft__content">
+
+          <p
+            ref={aircraftLabelRef}
+            className="sck-aircraft__eyebrow"
+          >
+            OE-LSC / GULFSTREAM
+          </p>
+
+          <h2 ref={aircraftTitleRef}>
+            ATTITUDE,
+            <br />
+            ELEVATED.
+          </h2>
+
+          <p
+            ref={aircraftCopyRef}
+            className="sck-aircraft__copy"
+          >
+            A transformation conceived as a complete object.
+            <br />
+            Exterior. Interior. Detail. Identity.
+          </p>
+
+          <div
+            ref={aircraftMetaRef}
+            className="sck-aircraft__meta"
+          >
+            <span>01</span>
+            <span>THE AIRCRAFT</span>
+            <span>EXPLORE ↗</span>
+          </div>
+
+        </div>
+
+      </section>
+
     </main>
   )
 }
