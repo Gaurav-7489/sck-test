@@ -1,0 +1,425 @@
+@import "tailwindcss";
+
+:root {
+  background: #050505;
+  color: #f4f1eb;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: #050505;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: #050505;
+  color: #f4f1eb;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* --------------------------------------------------
+   EXPERIENCE
+-------------------------------------------------- */
+
+.sck-experience {
+  position: relative;
+  width: 100%;
+  background: #050505;
+  overflow: clip;
+}
+
+/* --------------------------------------------------
+   LOADING
+-------------------------------------------------- */
+
+.sck-loading {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #050505;
+  pointer-events: none;
+}
+
+.sck-loading video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sck-loading__label {
+  position: absolute;
+  left: 34px;
+  bottom: 30px;
+  z-index: 2;
+}
+
+.sck-loading__label span {
+  font-size: 9px;
+  letter-spacing: 0.28em;
+  opacity: 0.65;
+}
+
+/* --------------------------------------------------
+   HERO
+-------------------------------------------------- */
+
+.sck-hero {
+  position: relative;
+  width: 100%;
+  height: 100svh;
+  min-height: 680px;
+  overflow: hidden;
+  isolation: isolate;
+  background: #050505;
+}
+
+.sck-hero__atmosphere {
+  position: absolute;
+  inset: -20%;
+  z-index: -2;
+  background:
+    radial-gradient(
+      circle at 67% 45%,
+      rgba(255, 255, 255, 0.11),
+      transparent 24%
+    ),
+    radial-gradient(
+      circle at 18% 80%,
+      rgba(255, 255, 255, 0.045),
+      transparent 34%
+    );
+  filter: blur(55px);
+  will-change: transform, opacity;
+}
+
+.sck-hero__image {
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+  overflow: hidden;
+}
+
+.sck-hero__image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+  will-change: transform, opacity, filter;
+}
+
+.sck-hero__shade {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.76) 0%,
+      rgba(0, 0, 0, 0.42) 35%,
+      rgba(0, 0, 0, 0.08) 74%,
+      rgba(0, 0, 0, 0.32) 100%
+    ),
+    linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.68) 0%,
+      transparent 48%,
+      rgba(0, 0, 0, 0.3) 100%
+    );
+}
+
+/* --------------------------------------------------
+   NAV
+-------------------------------------------------- */
+
+.sck-hero__nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 30px 42px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 5;
+}
+
+.sck-wordmark {
+  font-size: 25px;
+  font-weight: 800;
+  letter-spacing: 0.28em;
+}
+
+.sck-hero__nav nav {
+  display: flex;
+  gap: 30px;
+}
+
+.sck-hero__nav nav a {
+  position: relative;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  opacity: 0.72;
+  transition: opacity 250ms ease;
+}
+
+.sck-hero__nav nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: -7px;
+  height: 1px;
+  background: currentColor;
+  transition: right 300ms ease;
+}
+
+.sck-hero__nav nav a:hover {
+  opacity: 1;
+}
+
+.sck-hero__nav nav a:hover::after {
+  right: 0;
+}
+
+/* --------------------------------------------------
+   HERO CONTENT
+-------------------------------------------------- */
+
+.sck-hero__content {
+  position: absolute;
+  left: 7vw;
+  bottom: 14vh;
+  max-width: 850px;
+  z-index: 4;
+}
+
+.sck-hero__eyebrow {
+  margin: 0 0 20px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.34em;
+}
+
+.sck-hero__content h1 {
+  margin: 0;
+  font-size: clamp(56px, 8.2vw, 138px);
+  line-height: 0.83;
+  font-weight: 500;
+  letter-spacing: -0.055em;
+  text-transform: uppercase;
+}
+
+.sck-hero__sub {
+  margin: 30px 0 26px;
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  font-weight: 500;
+}
+
+.sck-hero__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 22px;
+  padding: 15px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.55);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  transition:
+    gap 300ms ease,
+    border-color 300ms ease;
+}
+
+.sck-hero__cta:hover {
+  gap: 32px;
+  border-color: white;
+}
+
+.sck-hero__cta span {
+  font-size: 16px;
+  line-height: 1;
+}
+
+/* --------------------------------------------------
+   SCROLL INDICATOR
+-------------------------------------------------- */
+
+.sck-hero__scroll {
+  position: absolute;
+  right: 42px;
+  bottom: 38px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transform: rotate(-90deg);
+  transform-origin: right bottom;
+  z-index: 5;
+}
+
+.sck-hero__scroll span {
+  font-size: 8px;
+  letter-spacing: 0.24em;
+  opacity: 0.65;
+}
+
+.sck-hero__scroll i {
+  display: block;
+  width: 48px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.45);
+}
+
+/* --------------------------------------------------
+   SCENE 02
+-------------------------------------------------- */
+
+.sck-statement {
+  position: relative;
+  min-height: 115svh;
+  display: flex;
+  align-items: center;
+  padding: 16vh 7vw;
+  background: #050505;
+  overflow: hidden;
+}
+
+.sck-statement::before {
+  content: "";
+  position: absolute;
+  width: 55vw;
+  height: 55vw;
+  right: -25vw;
+  top: 5%;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.025);
+  filter: blur(100px);
+}
+
+.sck-statement__inner {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+}
+
+.sck-statement__eyebrow {
+  margin: 0 0 35px;
+  font-size: 10px;
+  letter-spacing: 0.35em;
+  font-weight: 600;
+}
+
+.sck-statement h2 {
+  margin: 0;
+  font-size: clamp(58px, 10vw, 165px);
+  line-height: 0.82;
+  font-weight: 400;
+  letter-spacing: -0.06em;
+}
+
+.sck-statement__line {
+  width: min(420px, 45vw);
+  height: 1px;
+  margin: 55px 0 28px;
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.sck-statement__copy {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.8;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.62;
+}
+
+/* --------------------------------------------------
+   MOBILE
+-------------------------------------------------- */
+
+@media (max-width: 800px) {
+  .sck-hero {
+    min-height: 620px;
+  }
+
+  .sck-hero__nav {
+    padding: 22px 20px;
+  }
+
+  .sck-hero__nav nav {
+    display: none;
+  }
+
+  .sck-hero__content {
+    left: 20px;
+    right: 20px;
+    bottom: 12vh;
+  }
+
+  .sck-hero__content h1 {
+    font-size: clamp(52px, 15vw, 90px);
+  }
+
+  .sck-hero__sub {
+    font-size: 9px;
+    line-height: 1.7;
+    max-width: 280px;
+  }
+
+  .sck-hero__scroll {
+    right: 20px;
+    bottom: 24px;
+  }
+
+  .sck-hero__image img {
+    object-position: 62% center;
+  }
+
+  .sck-statement {
+    min-height: 100svh;
+    padding: 15vh 20px;
+  }
+
+  .sck-statement h2 {
+    font-size: clamp(54px, 16vw, 92px);
+  }
+
+  .sck-statement__line {
+    width: 70%;
+  }
+
+  .sck-statement__copy {
+    font-size: 9px;
+    max-width: 280px;
+  }
+}
+
+/* --------------------------------------------------
+   REDUCED MOTION
+-------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .sck-loading {
+    display: none;
+  }
+}
