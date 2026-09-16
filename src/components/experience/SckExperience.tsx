@@ -281,10 +281,6 @@ export default function SckExperience() {
     }, root)
 
     return () => {
-      if (loadingVideo) {
-        loadingVideo.removeEventListener('ended', dismissLoading)
-      }
-
       context.revert()
     }
   }, [])
